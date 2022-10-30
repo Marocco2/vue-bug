@@ -1,0 +1,136 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Author from "../components/Author.astro";
+import '../styles/blog.css';
+
+export interface Props {
+	content: {
+		title: string;
+		description: string;
+		publishDate: string;
+		author: string;
+		heroImage?: {
+			src: string;
+			alt: string;
+			altLink: string;
+		};
+	};
+}
+
+const {
+	content: { title, description, publishDate, heroImage, author },
+} = Astro.props as Props;
+
+import { Image } from '@astrojs/image/components';
+---
+
+<html lang="it">
+	<head>
+		<BaseHead title={title} description={description} heroImage={heroImage.src} />
+	</head>
+
+	<body>
+		<Header />
+		<article class="wrapper content">
+			<header>
+				{heroImage && (
+					<div class="copyright">
+					<Image
+						width={1280}
+						aspectRatio={3/2}
+						quality={90}
+						format='webp'
+						loading="eager"
+						fit="cover"
+						position="entropy"
+						src={heroImage.src}
+						alt={heroImage.alt}
+					/>
+					<a href={heroImage.altLink}>{heroImage.alt}</a></div>
+				)}
+				<h1 class="title">{title}</h1>
+				<div class="info">
+					<time>{publishDate}</time>
+					<Author name={author} />
+				</div>
+			</header>
+			<main>
+				<slot></slot>
+			</main>
+		</article>
+	</body>
+</html>
+
+<style>
+	.copyright{
+		color: var(--theme-text-lighter);
+		text-align: left;
+		justify-content: left;
+		margin-bottom: 0rem;
+		font-size: 12px;
+	}
+	.copyright > a{
+		color: var(--theme-text-lighter);
+		margin-left: 3em;
+	}
+	img {
+		width: 100vw;
+		height: 35vh;
+		object-fit: cover;
+		object-position: center;
+		margin-top: 2rem;
+		
+		max-width: 1280px;
+	}
+
+	@media (max-width: 50em) {
+		img {
+			height: 30vh;
+			margin-top: 2em;
+		}
+		
+	}
+
+	.content {
+		margin-bottom: 8rem;
+	}
+
+	.content :global(h2) {
+		margin-top: 4rem;
+	}
+
+	header {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+
+		padding-bottom: 2rem;
+		margin-bottom: 2rem;
+		border-bottom: 4px solid var(--theme-divider);
+	}
+
+	.title,
+	time {
+		margin: 0;
+	}
+
+	time {
+		color: var(--theme-text-lighter);
+		padding-right: 1em;
+	}
+
+	.title {
+		font-size: 4ex;
+		font-weight: 700;
+	}
+
+	main {
+		color: var(--theme-text-light);
+		text-align: justify;
+		letter-spacing: 0.01rem;
+	}
+</style>

@@ -1,0 +1,56 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    #Expect-CT = "enforce, max-age=31536000" # Deprecato
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "0"
+    # X-Content-Type-Options = "nosniff"
+    #TODO: Da abilitare in produzione verso la 1.0
+    Content-Security-Policy =  "default-src 'none'; connect-src 'self' blob: ; frame-src app.netlify.com; font-src 'self' rsms.me data:; img-src 'self' blob: *.cloudfront.net avatars.githubusercontent.com ; manifest-src 'self'; script-src 'self' *.netlify.app 'unsafe-inline' 'unsafe-eval'; style-src 'self' rsms.me 'unsafe-inline'; form-action 'none'; frame-ancestors 'none'; block-all-mixed-content; base-uri 'none'"
+    Cache-Control = '''
+    public, max-age=3600, must-revalidate
+    '''
+    Referrer-Policy = "no-referrer"
+    Strict-Transport-Security = '''max-age=31536000; includeSubDomains; preload'''
+
+[build]
+  command = "astro build"
+  functions = "netlify/functions"
+  publish = "dist"
+
+[template.environment]
+  FIREBASE_PRIVATE_KEY = "Firebase token here"
+
+[[redirects]]
+  from = "/"
+  to = "/wip"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/articoli/regolamento-2026"
+  to = "/articoli/f1/regolamento-2026"
+  status = 301
+
+# Redirects used for role-based access control don’t 
+# have a 'to' property.
+
+[[redirects]]
+  from = "/backyard#/*"
+  force = true
+  status = 200
+  conditions = {Role = ["articolista", "redattore", "admin"]}
+
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
+# Skip all post processing in deploy previews,
+# ignoring any other settings
+[context.deploy-preview.processing]
+  skip_processing = true
+

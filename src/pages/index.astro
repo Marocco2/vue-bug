@@ -1,0 +1,143 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import BlogPostPreview from '../components/BlogPostPreview.astro';
+import CaroselloNews from '../components/CaroselloNews.vue';
+import ScrollNews from '../components/ScrollNews.vue';
+import ClassificaSpoiler from '../components/ClassificaSpoiler.astro'
+
+let title = 'Test';
+let description = 'Il sito web che racchiude le informazioni più importanti e le ultime notizie sul Motorsport';
+
+// Use Astro.glob to fetch all post with associated frontmatter
+const unsortedPosts = await Astro.glob('./articoli/*/*.md');
+const posts = unsortedPosts.sort(function (a, b) {
+	return (
+		new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf()
+	);
+});
+---
+
+<html lang="it">
+	<head>
+		<BaseHead title={title} description={description} />
+		 <!-- Swiper JS -->
+ 		<script is:inline src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+	</head>
+
+	<body>
+		<Header />
+		<div class="wrapper">
+			<main class="content">
+				<section class="intro">
+					<h4>Ultime notizie</h4>
+					<ScrollNews client:visible />
+					<CaroselloNews client:visible />
+				</section>
+				<section aria-label="Blog post list">
+					<h4>Classifiche</h4>
+					<ClassificaSpoiler champ="F1">
+				</section>
+				<section aria-label="Blog post list">
+					<h4>I nostri articoli</h4>
+					<div class="swiper mySwiper">
+						<div class="swiper-wrapper">
+					{posts.map(({ url, frontmatter }) => (
+						<div class="swiper-slide">
+						<BlogPostPreview
+							heroImage={frontmatter.heroImage}
+							title={frontmatter.title}
+							description={frontmatter.description}
+							publishDate={frontmatter.publishDate}
+							url={url}
+						/>
+					</div>
+					))}
+					</div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-pagination"></div>
+				  </div>
+				</section>
+			</main>
+		</div>
+	</body>
+</html>
+
+<style>
+	.intro {
+		margin-top: 2rem;
+		/*border-bottom: 4px solid var(--theme-divider);*/
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+	}
+
+	h4 {
+		border-bottom: 2px solid var(--theme-divider);
+	}
+
+	.swiper > .swiper-wrapper > .swiper-slide {
+  		display: flex;
+  		align-items: center;
+  		justify-content: center;
+  		color: var(--theme-text);
+		background-color: unset;
+	}
+
+	.swiper-pagination-bullet-active {
+		background: var(--theme-accent) !important;
+	}
+
+	.swiper-button-next, .swiper-button-prev{
+		color: var(--theme-accent) !important;
+	}
+
+	.swiper-button-prev {
+		left: 0 !important;
+			}
+	
+	.swiper-button-next {
+		right: 0 !important;
+			}
+
+	@media (max-width: 50em) {
+			.swiper-button-next, .swiper-button-prev {
+				display: none !important;
+			}
+			.swiper-pagination-bullet {
+				width: 15px !important;
+				height: 15px !important;
+			}
+		}
+
+</style>
+
+
+
+<script is:inline>
+	var swiper = new Swiper(".mySwiper", {
+	  cssMode: true,
+	  spaceBetween: 10,
+	  speed: 600,
+	  navigation: {
+		nextEl: ".swiper-button-next",
+		prevEl: ".swiper-button-prev",
+		hideOnClick: false,
+	  },
+	  pagination: {
+		el: ".swiper-pagination",
+		dynamicBullets: true,
+		clickable: true,
+	  },
+	  autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: true,
+    },
+	  mousewheel: true,
+	  keyboard: true,
+	});
+  </script>

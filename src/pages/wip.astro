@@ -1,0 +1,158 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+
+let title = 'example';
+let description = 'Il sito web che racchiude le informazioni più importanti e le ultime notizie sul Motorsport';
+
+---
+
+<html lang="it">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body>
+		<header class="wrapper">
+			<nav>
+				<a href="/">
+					<svg
+					   version="1.1"
+					   id="svg2"
+					   width="1779.2083"
+					   height="1821.5114"
+					   viewBox="0 0 1779.2083 1821.5114"
+					   xmlns="http://www.w3.org/2000/svg">
+					  <defs
+						 id="defs6" />
+					  <g id="layer1" transform="translate(-21.229009)">
+						<path 
+						   d="m 322.73862,0 408.94992,1821.3333 58.521,0.1781 L 894.9361,1366.5422 580.28477,0 Z"
+						   id="arancione" />
+						<path 
+						   d="M 199.45171,0 V 1821.3573 H 375.63932 V 347.8481 L 297.08591,0 Z"
+						   id="verde" />
+						<rect 
+						   id="blu"
+						   width="178.2227"
+						   height="1821.3573"
+						   x="21.22901"
+						   y="1.2539969e-13"/>
+						<rect 
+						   id="ciano"
+						   width="178.2227"
+						   height="1821.319"
+						   x="1622.2146"
+						   y="0.0029515589" />
+						<path 
+						   d="M 1236.0554,0.00379866 818.19432,1821.3333 1085.6882,1821.3331 1494.4531,0 Z"
+						   id="rosso"/>
+						<path 
+						   d="M 1622.2146,0.00295156 V 1821.3333 l -176.4523,0.01 -0.058,-1474.85898 L 1524.2187,0 Z"
+						   id="verde-chiaro" />
+					  </g>
+					</svg>
+					<span>MOTOR T<span id="G">G</span><span id="it">.it</span></span>
+				</a>
+			</nav>
+		</header>
+		<div class="wrapper">
+			<main class="content">
+				<section class="intro">
+					<h4>Apriremo molto presto... ;-)</h4>
+				</section>
+			</main>
+		</div>
+	</body>
+</html>
+
+<style>
+	header {
+		display: flex;
+ 		-webkit-box-pack: center;
+ 		-ms-flex-pack: center;
+ 		-webkit-justify-content: center;
+ 		justify-content: center;
+ 		-webkit-box-align: center;
+ 		-ms-flex-align: center;
+ 		-webkit-align-items: center;
+ 		align-items: center;
+		padding-top: 45vh;
+		padding-bottom: 1rem;
+		height: 5rem;
+		font-family: 'CODE', sans-serif;
+		font-size: 10vw;
+	}
+
+	nav {
+		display: flex;
+		justify-content: center;
+	}
+
+	svg {
+		width: 0.7em;
+		height: 0.7em;
+	}
+	
+
+	#G {
+		font-family: sans-serif;
+	}
+	#it {
+		font-family: sans-serif;
+		color: var(--theme-text-lighter) !important;
+	}
+
+	path#arancione {
+		fill:#e95a0c;
+		fill-opacity:1;
+		stroke:none;
+	}
+	path#verde {
+		fill:#00973a;
+		fill-opacity:1;
+		stroke:none;
+	}
+	rect#blu {
+		fill:#28348a;
+		fill-opacity:1;
+		stroke:none;
+	}
+	rect#ciano {
+		fill:#009ee2;
+		fill-opacity:1;
+		stroke:none;
+	}
+	path#rosso {
+		fill:#e20613;
+		fill-opacity:1;
+		stroke:none;
+	}
+	path#verde-chiaro {
+		fill:#93c01f;
+		fill-opacity:1;
+		stroke:none;
+	}
+
+	h4 {
+		font-size: 1.5em !important;
+		margin-top: 5vw;
+		justify-content: center;
+		display: flex;
+ 		-webkit-box-pack: center;
+ 		-ms-flex-pack: center;
+ 		-webkit-justify-content: center;
+ 		justify-content: center;
+ 		-webkit-box-align: center;
+ 		-ms-flex-align: center;
+ 		-webkit-align-items: center;
+ 		align-items: center;
+ 		color: var(--theme-code-lighter) !important;
+		/*border-bottom: 4px solid var(--theme-divider);*/
+	}
+
+	h1 {
+		font-size: 2.5vw;
+		font-weight: 700;
+	}
+	
+</style>
