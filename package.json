@@ -13,7 +13,7 @@
   "devDependencies": {
     "@astrojs/image": "^0.11.2",
     "@astrojs/preact": "^1.2.0",
-    "astro": "^1.6.5"
+    "astro": "^1.6.7"
   },
   "dependencies": {
     "@astrojs/vue": "^1.2.1",
