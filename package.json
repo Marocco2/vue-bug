@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@astrojs/vue": "^1.2.1",
-    "astro-netlify-cms": "^0.3.3",
+    "astro-netlify-cms": "^0.3.4",
     "preact": "^10.11.3",
     "sharp": "^0.31.2",
     "swiper": "^8.4.4",
